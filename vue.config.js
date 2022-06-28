@@ -9,10 +9,8 @@ module.exports = defineConfig({
       return args;
     })
   },
-  publicPath:'./',
+  publicPath:'/static/',
   outputDir:'dist',
-  assetsDir:'static',
-  indexPath:'index.html',
   devServer:{
     allowedHosts: ['limitless-hamlet.herokuapp.com/'],
     open:true,
