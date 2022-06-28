@@ -13,7 +13,10 @@
         name: "Login",
         data() {
             return {
-                user: {email: '', password: ''}
+                user: {
+                    email: '', 
+                    password: ''
+                    }
             }
         },
         methods: {

@@ -15,7 +15,11 @@
         name: "Register",
         data() {
             return {
-                user: {username: '', password: '',email:''},
+                user: {
+                    username: '', 
+                    password: '',
+                    email:''
+                    },
             }
         },
         methods: {

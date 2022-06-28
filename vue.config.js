@@ -12,19 +12,20 @@ module.exports = defineConfig({
   publicPath:'/static/',
   outputDir:'dist',
   devServer:{
-    allowedHosts: ['limitless-hamlet.herokuapp.com/'],
-    open:true,
+    //allowedHosts: ['limitless-hamlet.herokuapp.com/'],
+    /* open:true,
     host:'localhost',
     port:8080,
-    https:true,
+    https:true, */
     proxy:{
       '/': {
         ws: false,
+        //target: 'http://localhost:9090',
         target: 'https://limitless-hamlet.herokuapp.com/',
         changeOrigin: true,
-        pathRewrite: {
+        /* pathRewrite: {
             '^/': ''
-        }
+        } */
     }
     }
   }
