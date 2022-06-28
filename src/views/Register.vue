@@ -2,7 +2,7 @@
     <div>
         <form v-on:submit.prevent="register()">
             <h1>註冊</h1>
-            <input type="text" class="123" v-model="user.username" placeholder="請輸入用户名" >
+            <input type="text" v-model="user.username" placeholder="請輸入用户名" >
             <input type="text" v-model="user.email" placeholder="請輸入信箱">
             <input type="password" v-model="user.password" placeholder="請輸入8位密碼">
             <button>確認</button>

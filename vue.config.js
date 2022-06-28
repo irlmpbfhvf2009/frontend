@@ -12,6 +12,7 @@ module.exports = defineConfig({
   publicPath:'/static/',
   outputDir:'dist',
   devServer:{
+    historyApiFallback: true,
     //allowedHosts: ['limitless-hamlet.herokuapp.com/'],
     /* open:true,
     host:'localhost',

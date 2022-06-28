@@ -1,6 +1,4 @@
 import { createWebHistory, createRouter } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
-import Register from "@/views/Register.vue";
 
 const routes = [
   {
@@ -11,12 +9,17 @@ const routes = [
   {
     path: "/Register",
     name: "Register",
-    component: Register,
+    component: () => import("@/views/Register.vue"),
   },
   {
     path: "/HelloWorld",
     name: "HelloWorld",
-    component: HelloWorld,
+    component: () => import("@/components/HelloWorld.vue"),
+  },
+  {
+    path: "/websocket",
+    name: "WebSocket",
+    component:  () => import("@/components/webSocket/WebSocket.vue"),
   },
 ];
 

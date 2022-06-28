@@ -29,7 +29,8 @@
                     })
             },
             register() {
-                this.$router.push({path: 'api/register'})
+                 router.push("/Register");
+                /* this.$router.push({path: '/register'}) */
             }
         }
     }
