@@ -14,14 +14,15 @@ module.exports = defineConfig({
   assetsDir:'static',
   indexPath:'index.html',
   devServer:{
+    allowedHosts: ['limitless-hamlet.herokuapp.com/'],
     open:true,
     host:'localhost',
     port:8080,
-    https:false,
+    https:true,
     proxy:{
       '/': {
         ws: false,
-        target: 'http://localhost:9090',
+        target: 'https://limitless-hamlet.herokuapp.com/',
         changeOrigin: true,
         pathRewrite: {
             '^/': ''
