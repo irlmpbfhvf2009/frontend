@@ -9,15 +9,17 @@ module.exports = defineConfig({
       return args;
     })
   },
+  /* publicPath:'/src/main/resources/templates/', */
   publicPath:'/static/',
-  outputDir:'dist',
+  //outputDir:'dist',
+  outputDir:'../backend/src/main/resources/static',
   devServer:{
     historyApiFallback: true,
     //allowedHosts: ['limitless-hamlet.herokuapp.com/'],
     host:'localhost',
-    port:8888,
-    open:true,
-    https:false, 
+    port:8080,
+    //open:true,
+    //https:false, 
     proxy:{
       '/': {
         ws: false,
