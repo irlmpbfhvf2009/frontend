@@ -19,7 +19,7 @@ module.exports = defineConfig({
     host:'localhost',
     port:8080,
     //open:true,
-    //https:false, 
+    https:true, 
     proxy:{
       '/': {
         ws: false,
