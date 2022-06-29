@@ -14,19 +14,19 @@ module.exports = defineConfig({
   devServer:{
     historyApiFallback: true,
     //allowedHosts: ['limitless-hamlet.herokuapp.com/'],
-    /* open:true,
     host:'localhost',
-    port:8080,
-    https:true, */
+    port:8888,
+    open:true,
+    https:false, 
     proxy:{
       '/': {
         ws: false,
-        //target: 'http://localhost:9090',
+        //target: 'http://localhost:8080',
         target: 'https://limitless-hamlet.herokuapp.com/',
         changeOrigin: true,
-        /* pathRewrite: {
-            '^/': ''
-        } */
+        pathRewrite: {
+            '^/api': '/screen'
+        }
     }
     }
   }
