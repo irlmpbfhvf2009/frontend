@@ -1,11 +1,37 @@
 <template>
+  <p>index</p>
+  <button @click="toHome">toHome</button>
+  <button @click="toLogin">toLogin</button>
+  <button @click="toRegister">toRegister</button>
 </template>
 
 <script>
-export default {
-  name: 'Home',
-  props: {
-  }
+import { useRouter } from 'vue-router'
+
+export default{
+  setup () {
+    const router = useRouter()
+    const toHome = (() => {
+      router.push({
+        name: 'Home'
+      })
+    })
+    const toLogin = (() => {
+      router.push({
+        name: 'Login'
+      })
+    })
+    const toRegister = (() => {
+      router.push({
+        name: 'Register'
+      })
+    })
+    return {
+      toHome,
+      toLogin,
+      toRegister
+    }
+  },
 }
 </script>
 

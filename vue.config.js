@@ -13,7 +13,7 @@ module.exports = defineConfig({
   publicPath:'/static/',
   //outputDir:'dist',
   outputDir:'../backend/src/main/resources/static',
-  devServer:{
+   devServer:{
     historyApiFallback: true,
     //allowedHosts: ['limitless-hamlet.herokuapp.com/'],
     host:'localhost',
@@ -31,5 +31,5 @@ module.exports = defineConfig({
         }
     }
     }
-  }
+  } 
 })
