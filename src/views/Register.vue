@@ -24,7 +24,7 @@
         },
         methods: {
             register() {
-                this.axios.post('http://localhost:9090/user/register', this.user)
+                this.axios.post('user/register', this.user)
                     .then(response => {
                         alert(response.data.body)
                     }).catch((err)=>{

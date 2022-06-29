@@ -22,7 +22,7 @@ import { useRouter } from 'vue-router'
         },
         methods: {
             login() {
-                this.axios.post('http://localhost:9090/user/login',this.user)
+                this.axios.post('user/login',this.user)
                 .then(response => {
                     alert(response.data.body)
                 }).catch((err)=>{
