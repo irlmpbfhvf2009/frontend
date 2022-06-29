@@ -22,7 +22,12 @@ import { useRouter } from 'vue-router'
         },
         methods: {
             login() {
-                this.axios.post('user/login',this.user)
+                if(window.location.href=='http://localhost:9090/login'){
+                    url='http://localhost:9090/user/login'
+                }else{
+                    url='user/login'
+                }
+                this.axios.post(url,this.user)
                 .then(response => {
                     alert(response.data.body)
                 }).catch((err)=>{

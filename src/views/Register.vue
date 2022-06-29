@@ -24,7 +24,12 @@
         },
         methods: {
             register() {
-                this.axios.post('user/register', this.user)
+                if(window.location.href=='http://localhost:9090/register'){
+                    url='http://localhost:9090/user/register'
+                }else{
+                    url='user/register'
+                }
+                this.axios.post(url, this.user)
                     .then(response => {
                         alert(response.data.body)
                     }).catch((err)=>{
