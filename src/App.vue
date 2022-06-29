@@ -1,4 +1,10 @@
 <template>
+  <div id=nav>
+    <router-like to="/">Home</router-like>
+    <router-like to="/login">Login</router-like>
+    <router-like to="/register">Register</router-like>
+  </div>
+  <router-view />
     <router-view/>
 </template>
 
