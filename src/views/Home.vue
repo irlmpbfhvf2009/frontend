@@ -1,8 +1,8 @@
 <template>
   <p>index</p>
-  <button @click="toHome">toHome</button>
-  <button @click="toLogin">toLogin</button>
-  <button @click="toRegister">toRegister</button>
+  <button @click="toHome">Home</button>
+  <button @click="toLogin">Login</button>
+  <button @click="toRegister">Register</button>
 </template>
 
 <script>
@@ -13,17 +13,17 @@ export default{
     const router = useRouter()
     const toHome = (() => {
       router.push({
-        name: 'Home'
+        name: 'home'
       })
     })
     const toLogin = (() => {
       router.push({
-        name: 'Login'
+        name: 'login'
       })
     })
     const toRegister = (() => {
       router.push({
-        name: 'Register'
+        name: 'register'
       })
     })
     return {
