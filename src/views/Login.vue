@@ -29,7 +29,7 @@
                     })
             },
             register() {
-                 router.push("/Register");
+                 router.push("/register");
                 /* this.$router.push({path: '/register'}) */
             }
         }
