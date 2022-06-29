@@ -1,5 +1,5 @@
 <template>
-  <p>index</p>
+  <p>需要被認證的網頁</p>
   <router-link to="/home"><button>Home</button></router-link>
   <router-link to="/login"><button>Login</button></router-link>
   <router-link to="/register"><button>Register</button></router-link>
@@ -9,6 +9,8 @@
 <script>
 
 export default{
+  setup () {
+  },
 }
 </script>
 

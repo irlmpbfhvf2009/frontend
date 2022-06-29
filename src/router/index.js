@@ -26,6 +26,11 @@ const routes = [
     name: "WebSocket",
     component:  () => import("@/views/WebSocket.vue"),
   },
+  {
+    path: "/aaa",
+    name: "aaa",
+    component:  () => import("@/views/aaa.vue"),
+  },
 ];
 
 const router = createRouter({

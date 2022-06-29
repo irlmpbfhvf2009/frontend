@@ -4,11 +4,12 @@
         <input type="text" v-model="user.email" placeholder="請輸入信箱">
         <input type="password" v-model="user.password" placeholder="請輸入8位密碼">
         <button v-on:click="login">登入</button>&nbsp;&nbsp;
-        <button v-on:click="register">註冊</button>
+        <router-link to="/register"><button>註冊</button></router-link>
     </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
     export default {
         /* name: "Login", */
         data() {
@@ -21,17 +22,13 @@
         },
         methods: {
             login() {
-                this.axios.post('api/login', this.user)
+                this.axios.post('http://localhost:9090/user/login',this.user)
                 .then(response => {
-                    alert(response.data)
+                    alert(response.data.body)
                 }).catch((err)=>{
-                    alert(err.response.data)
+                    alert(err.response.data.body)
                     })
             },
-            register() {
-                 router.push("/register");
-                /* this.$router.push({path: '/register'}) */
-            }
         }
     }
 </script>
