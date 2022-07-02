@@ -13,7 +13,6 @@ const service = axios.create({
 // 請求攔截器
 service.interceptors.request.use(
     config => {
-        /* config.headers['Authorization'] = ""; */
         const token = localStorage.getItem("token");
         console.log(token)
         !token ? delete config.headers.Authorization : (config.headers.Authorization = token);
