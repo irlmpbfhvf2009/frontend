@@ -11,28 +11,6 @@
 <script>
     export default {
         name: "Login",
-        data() {
-            return {
-                user: {
-                    email: '', 
-                    password: ''
-                    }
-            }
-        },
-        methods: {
-            login() {
-                this.axios.post('api/login', this.user)
-                .then(response => {
-                    alert(response.data)
-                }).catch((err)=>{
-                    alert(err.response.data)
-                    })
-            },
-            register() {
-                 router.push("/register");
-                /* this.$router.push({path: '/register'}) */
-            }
-        }
     }
 </script>
 

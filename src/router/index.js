@@ -21,11 +21,6 @@ const routes = [
     name: "HelloWorld",
     component: () => import("@/components/HelloWorld.vue"),
   },
-  {
-    path: "/websocket",
-    name: "WebSocket",
-    component:  () => import("@/views/WebSocket.vue"),
-  },
 ];
 
 const router = createRouter({

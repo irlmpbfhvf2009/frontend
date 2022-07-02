@@ -5,7 +5,6 @@
     <router-like to="/register">Register</router-like>
   </div>
   <router-view />
-    <router-view/>
 </template>
 
 <script>
