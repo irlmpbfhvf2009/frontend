@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve-dev": "vue-cli-service serve --mode development",
-    "build-dev": "vue-cli-service build --mode development",
+    "serve": "vue-cli-service serve --mode development",
+    "build": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
-    
     "serve-prop": "vue-cli-service serve --mode production",
     "build-prod": "vue-cli-service build --mode production"
   },
@@ -16,7 +15,8 @@
     "jquery": "^3.6.0",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

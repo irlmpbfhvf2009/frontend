@@ -1,30 +1,25 @@
-const env = import.meta.env.MODE;
-//import global from "@/composition/global";
-//import router from "../router";
-/* 根據域名判斷api的域名要用哪個 */
-let api = "";
-(function (env) {
-    if (env === "prod") {
-        api = "https://limitless-hamlet.herokuapp.com/";
-    } else {
-        api = process.env.VUE
-    }
-})(env);
+import axios from "axios";
 
 // 創建axios實例
+const api =  process.env.VUE_APP_BASE_API;
+/* var credentials = api==="http://localhost:9090"? false:true; */
 const service = axios.create({
     baseURL: api /* api 域名 */,
+    /* headers: { 'Content-Type': 'application/json' }, */
     timeout: 8000 /* api響應時間 */,
+    /* withCredentials : credentials */
 });
+
 // 請求攔截器
 service.interceptors.request.use(
     config => {
-        const token = localStorage.getItem("userToken");
+        /* config.headers['Authorization'] = ""; */
+        const token = localStorage.getItem("token");
+        console.log(token)
         !token ? delete config.headers.Authorization : (config.headers.Authorization = token);
         return config;
     },
     error => {
-        console.log(error);
         return Promise.reject(error);
     }
 );

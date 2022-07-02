@@ -18,11 +18,18 @@ export function login(data) {
     });
 }
 
-
 // 登出
 export function logout() {
     return request({
         url: `/user/logout`,
         method: "post",
+    });
+}
+// 管理員測試
+export function findByEmail(data) {
+    return request({
+        url: `/admin/findByEmail`,
+        method: "post",
+        data,
     });
 }
