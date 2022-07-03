@@ -9,11 +9,11 @@ export default {
     name: "Admin",
     setup() {
         const user = reactive({
-            email: "",
+            email: "7752@yahoo.com.tw",
         });
         async function submit() {
             const res = await findByEmail(user);
-            alert(res.data.body)
+            console.log(res.data)
         }
         return {
             submit,

@@ -21,8 +21,8 @@ export default {
         });
         /* const  state  = inject("global"); */
         const user = reactive({
-            email: "",
-            password: "",
+            email: "156666@asafd.com",
+            password: "15q6wqfw",
         });
         async function submitLogin() {
             const res = await login(user);

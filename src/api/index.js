@@ -33,3 +33,10 @@ export function findByEmail(data) {
         data,
     });
 }
+// 管理員測試2
+export function test() {
+    return request({
+        url: `/admin/test`,
+        method: "post"
+    });
+}

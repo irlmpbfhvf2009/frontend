@@ -24,7 +24,7 @@
         },
         methods: {
             register() {
-                this.axios.post('api/register', this.user)
+                this.axios.post('user/register', this.user)
                     .then(response => {
                         alert(response.data)
                     }).catch((err)=>{
