@@ -77,20 +77,15 @@ export default {
         };
         async function signIn() {
             const res = await login(user);
-            console.log(res)
-            const token = res.data.body
-            if (res.status === 200) {
+            const result = res.data.body
+            if (String(result).length>10) {
                 alert("登入成功")
-                localStorage.setItem("token", token)
+                localStorage.setItem("token", result)
                 signInVisible.value = false;
-                /* state.token = res.data.body */
             } else {
-                localStorage.removeItem("token")
-                alert(token)
+                alert(result)
             }
         }
-
-
 
         const signUpVisible = ref(false);
 
