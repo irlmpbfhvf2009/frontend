@@ -25,18 +25,11 @@ export function logout() {
         method: "post",
     });
 }
-// 管理員測試
-export function findByEmail(data) {
+// 新增好友
+export function addFriend(data) {
     return request({
-        url: `/admin/findByEmail`,
+        url: `/user/addFriend`,
         method: "post",
         data,
-    });
-}
-// 管理員測試2
-export function test() {
-    return request({
-        url: `/admin/test`,
-        method: "post"
     });
 }
