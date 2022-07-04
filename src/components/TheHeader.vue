@@ -1,10 +1,14 @@
 <template>
     <a-layout-header :style="{ zIndex: 1, width: '100%', position: 'fixed', }">
-
+        <div>
+            <!-- <router-link to="/"> -->
+                <img class="icon" src="../assets/a.png">
+            <!-- </router-link> -->
+        </div>
 
         <a-menu theme="light" mode="horizontal">
-            <!-- <a-menu-item key="1"><router-link to="/square">广场</router-link></a-menu-item>
-            <a-menu-item key="2"><router-link to="/follow">动态</router-link></a-menu-item>
+            <a-menu-item key="1">廣場</a-menu-item>
+            <!-- <a-menu-item key="2"><router-link to="/follow">动态</router-link></a-menu-item>
             <a-menu-item key="3" ><router-link to="/publish">发帖</router-link></a-menu-item>
             <a-menu-item key="4" ><router-link to="/myBlog">我的帖子</router-link></a-menu-item>
             <a-menu-item key="10" ><router-link to="/circles">兴趣圈</router-link></a-menu-item>
@@ -155,11 +159,11 @@ export default {
     background: #FFFFFF;
 }
 
-.logo {
+
+.icon {
     float: left;
     width: 100px;
-    height: 31px;
+    height: 70px;
     margin: 0px 0px 0px 0;
-    background: rgba(255, 255, 255, 0.3);
 }
 </style>
