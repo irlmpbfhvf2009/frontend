@@ -7,7 +7,9 @@
         </div>
 
         <a-menu theme="light" mode="horizontal">
-            <a-menu-item><router-link to="/square">廣場</router-link></a-menu-item>
+            <a-menu-item>
+                <router-link to="/square">廣場</router-link>
+            </a-menu-item>
             <!-- <a-menu-item key="2"><router-link to="/follow">动态</router-link></a-menu-item>
             <a-menu-item key="3" ><router-link to="/publish">发帖</router-link></a-menu-item>
             <a-menu-item key="4" ><router-link to="/myBlog">我的帖子</router-link></a-menu-item>
@@ -82,6 +84,8 @@ export default {
         const signUpVisible = ref(false);
 
         const popSignIn = () => {
+            localStorage.removeItem("token")
+            localStorage.removeItem("email")
             signInVisible.value = true;
         };
 
@@ -106,7 +110,9 @@ export default {
             if (String(result).length > 10) {
                 alert("登入成功")
                 localStorage.setItem("token", result)
+                localStorage.setItem("email", user.email)
                 signInVisible.value = false;
+                window.location.reload();
             } else {
                 alert(result)
             }
@@ -123,6 +129,7 @@ export default {
                 if (String(result).length > 10) {
                     alert("註冊成功，已自動登入")
                     localStorage.setItem("token", result)
+                    localStorage.setItem("email", user.email)
                     signUpVisible.value = false;
                 } else {
                     alert(result)

@@ -26,17 +26,10 @@ export function logout() {
     });
 }
 // 管理員測試
-export function findByEmail(data) {
+export function searchFriend(data) {
     return request({
-        url: `/admin/findByEmail`,
+        url: `/user/searchFriend`,
         method: "post",
         data,
-    });
-}
-// 管理員測試2
-export function test() {
-    return request({
-        url: `/admin/test`,
-        method: "post"
     });
 }
