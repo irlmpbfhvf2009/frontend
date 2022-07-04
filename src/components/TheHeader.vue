@@ -32,19 +32,19 @@
             </a-modal>
 
             <a-modal v-model:visible="signUpVisible" title="註冊" @ok="handleSignUpOk">
-                <a-form ref="formRef" :model="formState" :rules="rules" v-bind="layout" @finish="handleFinish"
-                    @validate="handleValidate" @finishFailed="handleFinishFailed">
+                <a-form>
                     <a-form-item label="信箱">
-                        <a-input placeholder="請輸入信箱" />
+                        <a-input v-model:value="signUpUser.email" placeholder="請輸入信箱" />
                     </a-form-item>
                     <a-form-item label="暱稱">
-                        <a-input placeholder="請輸入暱稱" />
+                        <a-input v-model:value="signUpUser.username" placeholder="請輸入暱稱" />
                     </a-form-item>
-                    <a-form-item has-feedback label="密碼" name="password">
-                        <a-input placeholder="請輸入密碼" type="password" />
+                    <a-form-item label="密碼" >
+                        <a-input v-model:value="signUpUser.password" placeholder="請輸入密碼" type="password" />
                     </a-form-item>
-                    <a-form-item has-feedback label="確認密碼" name="checkPass">
-                        <a-input placeholder="請再次確認密碼" type="password" autocomplete="off" />
+                    <a-form-item label="確認密碼" >
+                        <a-input v-model:value="formState.password" placeholder="請再次確認密碼" type="password"
+                            autocomplete="off" />
                     </a-form-item>
                 </a-form>
             </a-modal>
@@ -58,13 +58,21 @@
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { login } from "@/api/index.js";
+import { register } from "@/api/index.js";
 export default {
     name: "TheHeader",
     setup() {
+        /**
+         * 登录
+         */
         const user = reactive({
             email: "",
-            username: "",
             password: "",
+        });
+        const signUpUser = reactive({
+            username: '',
+            email: '',
+            password: ''
         });
         const signInVisible = ref(false);
 
@@ -78,7 +86,7 @@ export default {
         async function signIn() {
             const res = await login(user);
             const result = res.data.body
-            if (String(result).length>10) {
+            if (String(result).length > 10) {
                 alert("登入成功")
                 localStorage.setItem("token", result)
                 signInVisible.value = false;
@@ -88,15 +96,42 @@ export default {
         }
 
         const signUpVisible = ref(false);
+        /**
+ * 密码校验
+ */
+        const formState = reactive({
+            password: '',
+        });
 
         const popSignUp = () => {
             signUpVisible.value = true;
         };
         const handleSignUpOk = () => {
-            signUpVisible.value = false;
+            if (signUpUser.password != formState.password) {
+                alert('兩次密碼輸入不一致')
+                return false;
+            }
+            if (formState.password == "") {
+                alert('請再次輸入密碼')
+                return false;
+            }
+            signUp()
+        };
+        async function signUp() {
+            const res = await register(signUpUser);
+            const result = res.data.body
+            console.log(result)
+            if(String(result)=="註冊成功"){
+                alert("註冊成功")
+                signUpVisible.value=false;
+            }else{
+                alert(result)
+            }
         };
         return {
             user,
+            signUpUser,
+            formState,
             popSignIn,
             popSignUp,
             signInVisible,
