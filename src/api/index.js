@@ -25,10 +25,10 @@ export function logout() {
         method: "post",
     });
 }
-// 管理員測試
-export function searchFriend(data) {
+// 新增好友
+export function addFriend(data) {
     return request({
-        url: `/user/searchFriend`,
+        url: `/user/addFriend`,
         method: "post",
         data,
     });

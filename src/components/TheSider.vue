@@ -4,22 +4,23 @@
         <a-menu mode="inline" style="height: 100%">
 
             <a-divider />
-            <a-button type="primary" :style="{ left: '50px' }" @click="addFriend">新增好友</a-button>
-            <a-modal v-model:visible="addFriendVisible" title="新增好友" @ok="addFriendOk">
+            <a-button type="primary" :style="{ left: '50px' }" @click="inviteFriend">交友邀请</a-button>
+            <a-modal v-model:visible="addFriendVisible" title="交友邀请" ok-text="" cancel-text="取消" @ok="addFriendOk">
                 <a-form>
-                    <a-form-item label="用户名">
+                    <a-form-item label="信箱">
                         <div>                       
-                            <a-input v-model:value="user.friendUsername" :style="{width:'350px'}" placeholder="請輸入用戶名" />
-                            <a-button type="primary" @click="searchFriendBtn">搜尋</a-button>
+                            <a-input v-model:value="user.email" :style="{margin_right:'20px',width:'350px'}" placeholder="請輸入對方信箱" />
+                            <a-button type="primary" @click="addFriendBtn">加朋友</a-button>
                         </div>
                         <a-row :gutter="16">
-
-                        <!-- <a-col :span="24">123</a-col> -->
-
+                        <a-col  :span="24"></a-col>
                         </a-row>
                     </a-form-item>
+                    查看送出的邀請
                 </a-form>
             </a-modal>
+
+            
 
             <a-divider />
             <a-sub-menu>
@@ -36,17 +37,17 @@
 
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
-import { searchFriend } from "@/api/index.js";
+import { addFriend } from "@/api/index.js";
 export default {
     name: "TheSider",
     setup() {
         const user = reactive({
-            email: localStorage.getItem("email"),
-            username: "",
+            localEmail: localStorage.getItem("email"),
+            email: "",
         });
         const addFriendVisible = ref(false);
 
-        const addFriend = () => {
+        const inviteFriend = () => {
             addFriendVisible.value = true;
         };
         const addFriendOk = () => {
@@ -54,25 +55,30 @@ export default {
             addFriendVisible.value = false;
         };
         
-        async function searchFriendBtn() {
-            if(user.email==null){
+        async function addFriendBtn() {
+            if(user.localEmail==null){
                 alert("請先登入")
                 return false;
             }
-            console.log(user.username)
-            const res = await searchFriend(user);
-            console.log(res)
+            const res = await addFriend(user);
+            const state =  res.data.statusCode
             const result = res.data.body
-            console.log(result)
+            if(state=="ok"){
+                alert(result)
+            }else{
+                alert(result)
+            }
+            
         }
         
         return {
             user,
+            inviteFriend,
             addFriend,
             addFriendVisible,
             addFriendOk,
-            searchFriend,
-            searchFriendBtn,
+            addFriend,
+            addFriendBtn,
         }
     }
 }

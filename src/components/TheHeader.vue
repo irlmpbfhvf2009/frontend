@@ -107,7 +107,8 @@ export default {
         async function signIn() {
             const res = await login(user);
             const result = res.data.body
-            if (String(result).length > 10) {
+            const state =  res.data.statusCode
+            if (state =="OK") {
                 alert("登入成功")
                 localStorage.setItem("token", result)
                 localStorage.setItem("email", user.email)
