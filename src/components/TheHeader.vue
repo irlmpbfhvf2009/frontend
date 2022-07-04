@@ -34,16 +34,17 @@
             <a-modal v-model:visible="signUpVisible" title="註冊" @ok="handleSignUpOk">
                 <a-form>
                     <a-form-item label="信箱">
-                        <a-input  v-model:value="signUpUser.email" placeholder="請輸入信箱" />
+                        <a-input v-model:value="signUpUser.email" placeholder="請輸入信箱" />
                     </a-form-item>
                     <a-form-item label="暱稱">
-                        <a-input  v-model:value="signUpUser.username" placeholder="請輸入暱稱" />
+                        <a-input v-model:value="signUpUser.username" placeholder="請輸入暱稱" />
                     </a-form-item>
                     <a-form-item has-feedback label="密碼">
-                        <a-input  v-model:value="signUpUser.password" placeholder="請輸入密碼" type="password" />
+                        <a-input v-model:value="signUpUser.password" placeholder="請輸入密碼" type="password" />
                     </a-form-item>
                     <a-form-item has-feedback label="確認密碼">
-                        <a-input  v-model:value="signUpUser.checkPassword" placeholder="請再次確認密碼" type="password" autocomplete="off" />
+                        <a-input v-model:value="signUpUser.checkPassword" placeholder="請再次確認密碼" type="password"
+                            autocomplete="off" />
                     </a-form-item>
                 </a-form>
             </a-modal>
@@ -88,7 +89,7 @@ export default {
             signIn()
         };
         const handleSignUpOk = () => {
-            if(signUpUser.password!=signUpUser.checkPassword){
+            if (signUpUser.password != signUpUser.checkPassword) {
                 alert("兩次密碼不一致")
                 return false;
             }
@@ -97,27 +98,39 @@ export default {
 
         async function signIn() {
             const res = await login(user);
-            console.log(res)
-            const token = res.data.body
-            if (res.status === 200) {
+            const result = res.data.body
+            if (String(result).length > 10) {
                 alert("登入成功")
-                localStorage.setItem("token", token)
+                localStorage.setItem("token", result)
                 signInVisible.value = false;
-                /* state.token = res.data.body */
             } else {
-                localStorage.removeItem("token")
-                alert(token)
+                alert(result)
             }
         }
 
         async function signUp() {
             const res = await register(signUpUser);
-            console.log(res)
+            const result = res.data.body
+            if (result == "註冊成功") {
+                user.email = signUpUser.email;
+                user.password = signUpUser.password;
+                const res = await login(user);
+                const result = res.data.body
+                if (String(result).length > 10) {
+                    alert("註冊成功，已自動登入")
+                    localStorage.setItem("token", result)
+                    signUpVisible.value = false;
+                } else {
+                    alert(result)
+                }
+            } else {
+                alert(result)
+            }
         }
 
 
 
-        
+
         return {
             user,
             signUpUser,
