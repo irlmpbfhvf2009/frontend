@@ -39,10 +39,10 @@
                     <a-form-item label="暱稱">
                         <a-input v-model:value="signUpUser.username" placeholder="請輸入暱稱" />
                     </a-form-item>
-                    <a-form-item label="密碼" >
+                    <a-form-item label="密碼">
                         <a-input v-model:value="signUpUser.password" placeholder="請輸入密碼" type="password" />
                     </a-form-item>
-                    <a-form-item label="確認密碼" >
+                    <a-form-item label="確認密碼">
                         <a-input v-model:value="formState.password" placeholder="請再次確認密碼" type="password"
                             autocomplete="off" />
                     </a-form-item>
@@ -97,8 +97,8 @@ export default {
 
         const signUpVisible = ref(false);
         /**
- * 密码校验
- */
+         * 密碼檢驗
+         */
         const formState = reactive({
             password: '',
         });
@@ -121,10 +121,19 @@ export default {
             const res = await register(signUpUser);
             const result = res.data.body
             console.log(result)
-            if(String(result)=="註冊成功"){
-                alert("註冊成功")
-                signUpVisible.value=false;
-            }else{
+            if (String(result) == "註冊成功") {
+                user.email=signUpUser.email;
+                user.password=signUpUser.password;
+                const res = await login(user);
+                const result = res.data.body
+                if (String(result).length > 10) {
+                    alert("註冊成功 已自動登入")
+                    localStorage.setItem("token", result)
+                } else {
+                    alert(result)
+                }
+                signUpVisible.value = false;
+            } else {
                 alert(result)
             }
         };
