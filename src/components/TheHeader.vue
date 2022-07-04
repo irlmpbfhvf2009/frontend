@@ -1,13 +1,13 @@
 <template>
     <a-layout-header :style="{ zIndex: 1, width: '100%', position: 'fixed', }">
         <div>
-            <!-- <router-link to="/"> -->
+            <router-link to="/">
                 <img class="icon" src="../assets/a.png">
-            <!-- </router-link> -->
+            </router-link>
         </div>
 
         <a-menu theme="light" mode="horizontal">
-            <a-menu-item key="1">廣場</a-menu-item>
+            <a-menu-item><router-link to="/square">廣場</router-link></a-menu-item>
             <!-- <a-menu-item key="2"><router-link to="/follow">动态</router-link></a-menu-item>
             <a-menu-item key="3" ><router-link to="/publish">发帖</router-link></a-menu-item>
             <a-menu-item key="4" ><router-link to="/myBlog">我的帖子</router-link></a-menu-item>
