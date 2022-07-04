@@ -7,24 +7,12 @@
         </div>
 
         <a-menu theme="light" mode="horizontal">
-            <a-menu-item>
-                <router-link to="/square">廣場</router-link>
-            </a-menu-item>
-            <!-- <a-menu-item key="2"><router-link to="/follow">动态</router-link></a-menu-item>
-            <a-menu-item key="3" ><router-link to="/publish">发帖</router-link></a-menu-item>
-            <a-menu-item key="4" ><router-link to="/myBlog">我的帖子</router-link></a-menu-item>
-            <a-menu-item key="10" ><router-link to="/circles">兴趣圈</router-link></a-menu-item>
-            <a-menu-item key="6"><router-link to="/adminCollect">收藏</router-link></a-menu-item>
-            <a-menu-item key="5"><router-link to="/myFriend">关注列表</router-link></a-menu-item>
-            <a-menu-item key="11" ><router-link to="/explore">发现</router-link></a-menu-item> -->
-
-            <a-menu-item :style="{ marginLeft: 'auto' }">
-                <a-button type="text" @click="popSignIn">登入</a-button>
-            </a-menu-item>
-
-            <a-menu-item>
-                <a-button type="text" @click="popSignUp">註冊</a-button>
-            </a-menu-item>
+            <a-menu-item key="1"><router-link to="/square">廣場</router-link></a-menu-item>
+            <a-menu-item key="2"><router-link to="/square">聊天室</router-link></a-menu-item>
+            <a-menu-item key="3"><router-link to="/square">我的帖子</router-link></a-menu-item>
+            <a-menu-item key="4"><router-link to="/square">關注列表</router-link></a-menu-item>
+            <a-menu-item key="5" :style="{ marginLeft: 'auto' }"><a-button type="text" @click="popSignIn">登入</a-button></a-menu-item>
+            <a-menu-item key="6"><a-button type="text" @click="popSignUp">註冊</a-button></a-menu-item>
 
             <a-modal v-model:visible="signInVisible" title="登入" @ok="handleSignInOk">
                 <a-form>
@@ -112,7 +100,6 @@ export default {
         async function signIn() {
             const res = await login(user);
             const result = res.data.body
-
             const state =  res.data.statusCode
             if (state =="OK") {
                 alert("登入成功")

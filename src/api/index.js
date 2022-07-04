@@ -33,3 +33,11 @@ export function addFriend(data) {
         data,
     });
 }
+// 我的好友
+export function myFriend(data) {
+    return request({
+        url: `/user/myFriend`,
+        method: "post",
+        data,
+    });
+}
