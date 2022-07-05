@@ -25,6 +25,16 @@ export function logout() {
         method: "post",
     });
 }
+
+// 登出
+export function memberInfo(data) {
+    return request({
+        url: `/user/memberInfo`,
+        method: "post",
+        data,
+    });
+}
+
 // 新增好友
 export function addFriend(data) {
     return request({

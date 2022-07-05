@@ -17,10 +17,10 @@
             <a-modal v-model:visible="signInVisible" title="登入" @ok="handleSignInOk">
                 <a-form>
                     <a-form-item label="信箱">
-                        <a-input v-model:value="user.email" placeholder="請輸入信箱" />
+                        <a-input v-model:value="signInUser.email" placeholder="請輸入信箱" />
                     </a-form-item>
                     <a-form-item label="密碼">
-                        <a-input type="password" v-model:value="user.password" placeholder="請輸入密碼" />
+                        <a-input type="password" v-model:value="signInUser.password" placeholder="請輸入密碼" />
                     </a-form-item>
                 </a-form>
             </a-modal>
@@ -52,33 +52,41 @@
 
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
-import { login } from "@/api/index.js";
-import { register } from "@/api/index.js";
+import { login,register,memberInfo } from "@/api/index.js";
+import  store  from '@/store'
 export default {
     name: "TheHeader",
     setup() {
         /**
-         * 登录
+         * 持續登入實體
          */
-        const user = reactive({
+        console.log(store.state.user)/* 
+        console.log(JSON.parse(store.state.user)) */
+
+        /**
+         * 登入實體
+         */
+        const signInUser = reactive({
             email: "",
             password: "",
+            token:"",
         });
 
-
+        /*
+         * 註冊實體
+         */
         const signUpUser = reactive({
             email: "",
             username: "",
             password: "",
             checkPassword: "",
+            token:"",
         });
 
         const signInVisible = ref(false);
         const signUpVisible = ref(false);
 
         const popSignIn = () => {
-            localStorage.removeItem("token")
-            localStorage.removeItem("email")
             signInVisible.value = true;
         };
 
@@ -98,32 +106,31 @@ export default {
         };
 
         async function signIn() {
-            const res = await login(user);
+            const res = await login(signInUser);
             const result = res.data.body
             const state =  res.data.statusCode
             if (state =="OK") {
                 alert("登入成功")
-                localStorage.setItem("token", result)
-                localStorage.setItem("email", user.email)
+                signInUser.token=result;
+                const res = await memberInfo(signInUser);
+                store.commit("setUser",res.data.body)
                 signInVisible.value = false;
-                window.location.reload();
             } else {
                 alert(result)
             }
         }
-
         async function signUp() {
             const res = await register(signUpUser);
             const result = res.data.body
             if (result == "註冊成功") {
-                user.email = signUpUser.email;
-                user.password = signUpUser.password;
-                const res = await login(user);
+                const res = await login(signUpUser);
                 const result = res.data.body
-                if (String(result).length > 10) {
+                const state =  res.data.statusCode
+                if (state=="OK") {
                     alert("註冊成功，已自動登入")
-                    localStorage.setItem("token", result)
-                    localStorage.setItem("email", user.email)
+                    signUpUser.token=result
+                    const res = await memberInfo(signUpUser);
+                    store.commit("setUser",res.data.body)
                     signUpVisible.value = false;
                 } else {
                     alert(result)
@@ -133,11 +140,8 @@ export default {
             }
         }
 
-
-
-
         return {
-            user,
+            signInUser,
             signUpUser,
             popSignIn,
             popSignUp,
