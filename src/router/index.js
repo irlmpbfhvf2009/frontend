@@ -1,6 +1,7 @@
 import { createWebHashHistory, createRouter } from "vue-router";
 import AppIntro from '../views/AppIntro.vue'
 import Square from '../views/Square.vue'
+import PrivateChat from '../views/PrivateChat.vue'
 const routes = [
   {
     path: '/',
@@ -11,6 +12,11 @@ const routes = [
     path: '/square',
     name: 'square',
     component: Square
+  },
+  {
+    path: '/privateChat/:friendId/:friendName',
+    name: 'privateChat',
+    component: PrivateChat
   },
 ];
 

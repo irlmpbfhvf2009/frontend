@@ -36,7 +36,7 @@
                         <template #overlay>
                             <a-menu>
                                 <a-menu-item>
-                                    <router-link to="/adminInfo">
+                                    <router-link to="/">
                                         <a-button type="text">個人中心</a-button>
                                     </router-link>
                                 </a-menu-item>

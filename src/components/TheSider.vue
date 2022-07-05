@@ -26,9 +26,9 @@
                 <template #title>
                     <span>我的好友</span>
                 </template>
-                <a-menu-item v-for="(item,index) in friendList" :key="index" >
+                <a-menu-item v-for="(friend) in friendList" :key="friend.id" @click="toChat(friend.id,friend.username)">
                     <span style="margin-left: 0px">
-                        {{ item }}
+                        {{ friend.username }}
                     </span>
                 </a-menu-item>
             </a-sub-menu>
@@ -37,9 +37,12 @@
 </template>
 
 <script>
+
 import { ref, reactive, computed, onMounted } from 'vue'
 import { addFriend, myFriend } from "@/api/index.js";
 import store from '@/store'
+import { useRouter } from "vue-router";
+
 export default {
     name: "TheSider",
     setup() {
@@ -47,10 +50,9 @@ export default {
          * 持續登入實體
          */
         const user = store.state.user;
-        console.log(user);
 
         const email = reactive({
-            loginEmail:user.email,
+            loginEmail: user.email,
             email: "",
         });
         const addFriendVisible = ref(false);
@@ -81,13 +83,19 @@ export default {
         async function searchMyFriend() {
             if (email.loginEmail != null) {
                 const res = await myFriend(email);
-                const result = res.data.body
-                var array =new Array();
-                for(let i=0;i<result.length;i++){
-                    array.push(result[i]);
-                }
-                friendList.value=array?array :[];
+                const result = res.data.body;
+                friendList.value = result;
             }
+        }
+        const router = useRouter();
+        const toChat = (friendId,friendName) => {
+            router.push({
+                name: 'privateChat',
+                params: {
+                    friendId: friendId,
+                    friendName: friendName,
+                }
+            })
         }
         onMounted(() => {
             searchMyFriend();
@@ -104,6 +112,7 @@ export default {
             myFriend,
             searchMyFriend,
             friendList,
+            toChat,
         }
     }
 }
