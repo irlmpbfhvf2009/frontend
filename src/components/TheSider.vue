@@ -77,8 +77,7 @@ export default {
                 const result = res.data.body
                 var array =new Array();
                 for(let i=0;i<result.length;i++){
-                    var username = result[i].split(':');
-                    array.push(username[0]);
+                    array.push(result[i]);
                 }
                 friendList.value=array?array :[];
             }
