@@ -14,7 +14,7 @@ const routes = [
     component: Square
   },
   {
-    path: '/privateChat/:friendId/:friendName',
+    path: '/chat/:friendId/:friendName',
     name: 'privateChat',
     component: PrivateChat
   },

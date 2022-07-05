@@ -1,9 +1,9 @@
 <template>
-    {{friendName}}
+    {{friend.friendId}}
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted,reactive, watchEffect } from "vue";
 import { useRoute } from "vue-router"
  
     export default ({
@@ -12,13 +12,16 @@ import { useRoute } from "vue-router"
         },
         setup() {
             const route = useRoute();
-           /*  onMounted(()=>{ */
-                const friendId = route.params.friendId;
-                const friendName = route.params.friendName;
-                console.log("参数"+" "+friendName+" "+friendId)
-            /* }) */
+            const friend = reactive({
+                friendId:"",
+                friendName:"",
+            })
+            watchEffect(()=>{
+                friend.friendId = route.params.friendId;
+                friend.friendName = route.params.friendName;
+            })
             return {
-                friendName,
+                friend,
             }
         },
     });
