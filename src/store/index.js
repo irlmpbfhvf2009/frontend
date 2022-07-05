@@ -2,17 +2,15 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        user:localStorage.getItem("user")||{},
+        user:JSON.parse(localStorage.getItem("user"))||{},
     },
     getters: {
     },
     mutations: {
         setUser(state, user) {
-            var arr = [];
-            arr.push(user.id,user.email,user.username);
-            var jsonUser = JSON.stringify(arr);
-            localStorage.setItem("user", jsonUser);
-            state.user=jsonUser;
+            console.log("store user : ",user)
+            state.user=user;
+            localStorage.setItem("user",JSON.stringify(user))
         },
     },
     actions: {

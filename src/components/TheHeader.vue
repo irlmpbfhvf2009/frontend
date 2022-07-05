@@ -60,9 +60,8 @@ export default {
         /**
          * 持續登入實體
          */
-        console.log(store.state.user)/* 
-        console.log(JSON.parse(store.state.user)) */
 
+        const user = store.state.user;
         /**
          * 登入實體
          */
