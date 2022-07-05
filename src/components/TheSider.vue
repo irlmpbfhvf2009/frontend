@@ -9,7 +9,7 @@
                 <a-form>
                     <a-form-item label="信箱">
                         <div>
-                            <a-input v-model:value="user.email" :style="{ margin_right: '20px', width: '300px' }"
+                            <a-input v-model:value="email.email" :style="{ margin_right: '20px', width: '300px' }"
                                 placeholder="請輸入對方信箱" />
                             <a-button type="primary" @click="addFriendBtn">送出邀請</a-button>
                         </div>
@@ -39,12 +39,19 @@
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { addFriend, myFriend } from "@/api/index.js";
+import store from '@/store'
 export default {
     name: "TheSider",
     setup() {
-        const user = reactive({
+        /**
+         * 持續登入實體
+         */
+        const user = store.state.user;
+        console.log(user);
+
+        const email = reactive({
+            loginEmail:user.email,
             email: "",
-            loginEmail:localStorage.getItem("email"),
         });
         const addFriendVisible = ref(false);
 
@@ -57,11 +64,11 @@ export default {
         };
 
         async function addFriendBtn() {
-            if (user.loginEmail == null) {
+            if (email.loginEmail == null) {
                 alert("請先登入")
                 return false;
             }
-            const res = await addFriend(user);
+            const res = await addFriend(email);
             const state = res.data.statusCode
             const result = res.data.body
             if (state == "ok") {
@@ -72,8 +79,8 @@ export default {
         }
         const friendList = ref();
         async function searchMyFriend() {
-            if (user.loginEmail != null) {
-                const res = await myFriend(user);
+            if (email.loginEmail != null) {
+                const res = await myFriend(email);
                 const result = res.data.body
                 var array =new Array();
                 for(let i=0;i<result.length;i++){
@@ -83,10 +90,11 @@ export default {
             }
         }
         onMounted(() => {
-            /* searchMyFriend(); */
+            searchMyFriend();
         })
         return {
             user,
+            email,
             inviteFriend,
             addFriend,
             addFriendVisible,

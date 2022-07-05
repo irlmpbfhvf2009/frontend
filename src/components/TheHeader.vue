@@ -7,12 +7,49 @@
         </div>
 
         <a-menu theme="light" mode="horizontal">
-            <a-menu-item key="1"><router-link to="/square">廣場</router-link></a-menu-item>
-            <a-menu-item key="2"><router-link to="/square">聊天室</router-link></a-menu-item>
-            <a-menu-item key="3"><router-link to="/square">我的帖子</router-link></a-menu-item>
-            <a-menu-item key="4"><router-link to="/square">關注列表</router-link></a-menu-item>
-            <a-menu-item key="5" :style="{ marginLeft: 'auto' }"><a-button type="text" @click="popSignIn">登入</a-button></a-menu-item>
-            <a-menu-item key="6"><a-button type="text" @click="popSignUp">註冊</a-button></a-menu-item>
+            <a-menu-item key="1" >
+                <router-link to="/square">廣場</router-link>
+            </a-menu-item>
+            <a-menu-item key="2">
+                <router-link to="/square">聊天室</router-link>
+            </a-menu-item>
+            <a-menu-item key="3" v-if="!!user.id">
+                <router-link to="/square">我的帖子</router-link>
+            </a-menu-item>
+            <a-menu-item key="4" v-if="!!user.id">
+                <router-link to="/square">關注列表</router-link>
+            </a-menu-item>
+            <a-menu-item key="5" v-if="!user.id" :style="{ marginLeft: 'auto' }">
+                <a-button type="text" @click="popSignIn">登入</a-button>
+            </a-menu-item>
+            <a-menu-item key="6" v-if="!user.id">
+                <a-button type="text" @click="popSignUp">註冊</a-button>
+            </a-menu-item>
+            <a-menu-item key="9" v-if="!!user.id" :style="{ marginLeft: 'auto' }">
+
+                <a-button type="text">
+                    <a-dropdown>
+                        <a class="ant-dropdown-link">
+                            <a-avatar alt="Han Solo" />
+                            {{ user.username }}
+                        </a>
+                        <template #overlay>
+                            <a-menu>
+                                <a-menu-item>
+                                    <router-link to="/adminInfo">
+                                        <a-button type="text">個人中心</a-button>
+                                    </router-link>
+                                </a-menu-item>
+                                <a-menu-item>
+                                    <a-button type="text" @click="logout">退出登入</a-button>
+                                </a-menu-item>
+                            </a-menu>
+                        </template>
+                    </a-dropdown>
+                </a-button>
+            </a-menu-item>
+
+
 
             <a-modal v-model:visible="signInVisible" title="登入" @ok="handleSignInOk">
                 <a-form>
@@ -52,23 +89,23 @@
 
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
-import { login,register,memberInfo } from "@/api/index.js";
-import  store  from '@/store'
+import { login, register, memberInfo } from "@/api/index.js";
+import store from '@/store'
 export default {
     name: "TheHeader",
     setup() {
         /**
          * 持續登入實體
          */
-
         const user = store.state.user;
+
         /**
          * 登入實體
          */
         const signInUser = reactive({
             email: "",
             password: "",
-            token:"",
+            token: "",
         });
 
         /*
@@ -79,7 +116,7 @@ export default {
             username: "",
             password: "",
             checkPassword: "",
-            token:"",
+            token: "",
         });
 
         const signInVisible = ref(false);
@@ -107,13 +144,14 @@ export default {
         async function signIn() {
             const res = await login(signInUser);
             const result = res.data.body
-            const state =  res.data.statusCode
-            if (state =="OK") {
+            const state = res.data.statusCode
+            if (state == "OK") {
                 alert("登入成功")
-                signInUser.token=result;
+                signInUser.token = result;
                 const res = await memberInfo(signInUser);
-                store.commit("setUser",res.data.body)
+                store.commit("setUser", res.data.body)
                 signInVisible.value = false;
+                window.location.reload();
             } else {
                 alert(result)
             }
@@ -124,12 +162,12 @@ export default {
             if (result == "註冊成功") {
                 const res = await login(signUpUser);
                 const result = res.data.body
-                const state =  res.data.statusCode
-                if (state=="OK") {
+                const state = res.data.statusCode
+                if (state == "OK") {
                     alert("註冊成功，已自動登入")
-                    signUpUser.token=result
+                    signUpUser.token = result
                     const res = await memberInfo(signUpUser);
-                    store.commit("setUser",res.data.body)
+                    store.commit("setUser", res.data.body)
                     signUpVisible.value = false;
                 } else {
                     alert(result)
@@ -139,7 +177,13 @@ export default {
             }
         }
 
+        const logout = () => {
+            store.commit("setUser", {});
+            window.location.reload();
+        };
+
         return {
+            user,
             signInUser,
             signUpUser,
             popSignIn,
@@ -148,7 +192,7 @@ export default {
             signUpVisible,
             handleSignInOk,
             handleSignUpOk,
-
+            logout,
         }
     }
 };
