@@ -98,7 +98,7 @@ export default {
             })
         }
         onMounted(() => {
-            /* searchMyFriend(); */
+            searchMyFriend();
         })
         return {
             user,

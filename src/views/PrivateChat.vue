@@ -1,7 +1,7 @@
 <template>
     {{ friend.friendId }}
-
     <WebSocket></WebSocket>
+    <WebSocket2></WebSocket2>
 </template>
 
 <script>
@@ -30,6 +30,3 @@ export default ({
     },
 });
 </script>
-
-<style scoped>
-</style>
