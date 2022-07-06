@@ -1,23 +1,34 @@
 <template>
-  <a-layout>
-    <the-header></the-header>
-    <home-view></home-view>
-    <the-footer></the-footer>
-  </a-layout>
+  <img src="./assets/logo.png">
+  <div>
+    <p>
+      If Element Plus is successfully added to this project, you'll see an
+      <code v-text="'<el-button>'"></code>
+      below
+    </p>
+    <el-button type="primary">el-button</el-button>
+  </div>
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import TheHeader from '@/components/TheHeader.vue';
-import TheFooter from '@/components/TheFooter.vue';
-import HomeView from '@/views/HomeView.vue';
+import HelloWorld from './components/HelloWorld.vue'
+
 export default {
   name: 'App',
-  components: { 
-    TheHeader,
-    TheFooter,
-    HomeView,
-  },
+  components: {
+    HelloWorld
+  }
 }
 </script>
 
-
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

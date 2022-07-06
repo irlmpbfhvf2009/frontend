@@ -1,7 +1,7 @@
 <template>
-    <!-- <a-layout-footer style="text-align: center">
-        Stars ©2022 Created by Fang Yuan Hao
-    </a-layout-footer> -->
+    <a-layout-footer style="text-align: center">
+        Stars ©2022 Created by leo
+    </a-layout-footer>
 </template>
 
 <script>

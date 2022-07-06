@@ -1,7 +1,6 @@
 <template>
     {{ friend.friendId }}
 
-    webSocket推送
     <WebSocket></WebSocket>
 </template>
 
