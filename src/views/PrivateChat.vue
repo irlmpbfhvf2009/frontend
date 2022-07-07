@@ -27,7 +27,7 @@ export default ({
             const route = useRoute();
             data.friendName = route.params.friendName;
             data.wsIsRun = true;
-            wsInit();
+            wsInit(data.friendName);
         })
 
         const sendDataToServer = () => {
@@ -39,14 +39,13 @@ export default ({
             }
         }
 
-        const wsInit = () => {
+        const wsInit = (friendName) => {
             const username = store.state.user.username
-            const friendName = data.friendName;
             if (username != undefined) {
                 const wsurl = 'ws://localhost:9090/websocket/' + username + '/' + friendName
                 data.ws = wsurl
-                if (!data.wsIsRun) return
-                wsDestroy()
+                if (!data.wsIsRun) 
+                return wsDestroy()
                 data.webSocket = new WebSocket(data.ws)
                 data.webSocket.addEventListener('open', wsOpenHanler)
                 data.webSocket.addEventListener('message', wsMessageHanler)
@@ -89,6 +88,7 @@ export default ({
         const route = useRoute();
         watchEffect(() => {
             data.friendName = route.params.friendName;
+            wsInit(data.friendName);
         })
         return {
             data,
