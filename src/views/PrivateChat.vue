@@ -3,7 +3,7 @@
     </div>
     <div>
         <input v-model.value="data.message" :style="{ width: '700px' }" />
-        <a-button @click="sendDataToServer">發送消息{{ data.friendName }}</a-button>
+        <a-button @click="sendDataToFriend">發送消息</a-button>
     </div>
 </template>
 <script>
@@ -27,10 +27,10 @@ export default ({
             const route = useRoute();
             data.friendName = route.params.friendName;
             data.wsIsRun = true;
-            wsInit(data.friendName);
+            /* wsInit(data.friendName); */
         })
 
-        const sendDataToServer = () => {
+        const sendDataToFriend = () => {
             if (data.webSocket.readyState === 1) {
                 data.webSocket.send(data.message);
                 data.message = '';
@@ -92,7 +92,7 @@ export default ({
         })
         return {
             data,
-            sendDataToServer,
+            sendDataToFriend,
         }
     }
 })
