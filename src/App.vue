@@ -1,21 +1,23 @@
 <template>
-  <TheHeaderVue></TheHeaderVue>
-  <TheSiderVue></TheSiderVue>
-  <TheFooterVue></TheFooterVue>
+  <a-layout>
+    <the-header></the-header>
+    <!--      <router-view/>-->
+    <home-view></home-view>
+    <the-footer></the-footer>
+  </a-layout>
 </template>
 
 <script>
-import TheFooterVue from './components/TheFooter.vue'
-import TheHeaderVue from './components/TheHeader.vue'
-import TheSiderVue from './components/TheSider.vue'
-
+import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue';
+import HomeView from '@/views/HomeView.vue';
 
 export default {
   name: 'App',
   components: {
-    TheFooterVue,
-    TheHeaderVue,
-    TheSiderVue,
+    TheHeader,
+    TheFooter,
+    HomeView,
   }
 }
 </script>

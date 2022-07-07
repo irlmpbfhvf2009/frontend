@@ -49,7 +49,7 @@ export default {
         /**
          * 持續登入實體
          */
-        const user = store.state.user;
+        const user = store.state.user
 
         const email = reactive({
             loginEmail: user.email,
@@ -98,8 +98,8 @@ export default {
             })
         }
         onMounted(() => {
-            searchMyFriend();
-        })
+/*             searchMyFriend();
+ */        })
         return {
             user,
             email,

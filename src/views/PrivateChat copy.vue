@@ -1,41 +1,56 @@
-<template>
+<!-- <template>
     <div :style="{ height:'500px'}">
     </div>
     <div>
-        <a-input v-model:value="a.b" :style="{ width:'700px' }" />
-        <a-button @click="sendDataToServer">發送消息</a-button>
+        <input v-model="message" :style="{ width:'700px' }"  />
+        <a-button @click="sendDataToServer;setFriendId(friend.friendName)"  >發送消息</a-button>
     </div>
 </template>
-
 <script>
+import { onMounted, reactive, watchEffect } from "vue";
+import { useRoute } from "vue-router"
 import store from '@/store';
-import { ref, reactive, computed, onMounted } from 'vue'
-export default {
-    name: "WebSocket",
+
+export default ({
+    name: "privateChat",
     data() {
         return {
             wsIsRun: false,
             webSocket: null,
             ws: '',
             wsTimer: null,
+            message:"",
+            friendName:"",
         }
     },
     async mounted() {
+        this.friendName=getFriendName()
         this.wsIsRun = true;
         this.wsInit()
     },
     methods: {
         sendDataToServer() {
-            this.webSocket.send('asd')
             if (this.webSocket.readyState === 1) {
-                this.webSocket.send('來自前端的數據')
+                this.webSocket.send(this.message)
+                this.message=''
             } else {
                 throw Error('服務器未連接')
             }
         },
+        getFriendName(){
+            return friendName
+        },
+        setFriendId(friendName){
+          this.friendName=friendName;
+        },
         wsInit() {
             const url = process.env.VUE_APP_BASE_API;
-            const wsurl = 'ws://localhost:9090/websocket/' + store.state.user.username
+            const id = store.state.user.id
+            const username = store.state.user.username
+            const friendId=this.friendId;
+            const friendName=this.friendName;
+            console.log(friendId)
+            const wsurl = 'ws://localhost:9090/websocket/'+ username +'/'+friendName
             this.ws = wsurl
             if (!this.wsIsRun) return
             this.wsDestroy()
@@ -49,17 +64,18 @@ export default {
                 if (this.webSocket.readyState === 1) {
                     clearInterval(this.wsTimer)
                 } else {
-                    console.log("ws建立連接失敗")
+                    console.log("建立連接失敗")
                     this.wsInit()
                 }
             }, 3000);
         },
-        wsOpenHanler(event) {
-            console.log('ws建立連接成功')
+        wsOpenHanler(e) {
+            console.log('建立連接成功')
+            console.log(e.data)
         },
         wsMessageHanler(e) {
-            console.log('wsMessageHanler')
-            console.log(e)
+            console.log(e.data)
+            this.sessionId=e.data
         },
         wsErrorHanler(event) {
             console.log(event, '通信發生錯誤')
@@ -82,15 +98,20 @@ export default {
         }
     },
     setup() {
-        const a = reactive({
-            b: "",
+        const user = store.state.user
+        const route = useRoute();
+        const friend = reactive({
+            friendId: "",
+            friendName: "",
         })
-        
+        watchEffect(() => {
+            friend.friendId = route.params.friendId;
+            friend.friendName = route.params.friendName;
+        })
         return {
-            a,
+            friend,
         }
     },
-
-
-}
+});
 </script>
+ -->
