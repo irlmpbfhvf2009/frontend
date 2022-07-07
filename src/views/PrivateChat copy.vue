@@ -1,9 +1,9 @@
 <!-- <template>
-    <div :style="{ height:'500px'}">
+    <div :style="{ height: '500px' }">
     </div>
     <div>
-        <input v-model="message" :style="{ width:'700px' }"  />
-        <a-button @click="sendDataToServer;setFriendId(friend.friendName)"  >發送消息</a-button>
+        <input v-model="message" :style="{ width: '700px' }" />
+        <a-button @click="sendDataToServer">發送消息{{ friendName }}</a-button>
     </div>
 </template>
 <script>
@@ -19,63 +19,63 @@ export default ({
             webSocket: null,
             ws: '',
             wsTimer: null,
-            message:"",
-            friendName:"",
+            message: "",
+            friendName: "",
         }
     },
     async mounted() {
-        this.friendName=getFriendName()
+        const route = useRoute();
+        this.friendName = route.params.friendName;
         this.wsIsRun = true;
-        this.wsInit()
+        this.wsInit();
+    },
+    watchEffect: {
     },
     methods: {
         sendDataToServer() {
             if (this.webSocket.readyState === 1) {
                 this.webSocket.send(this.message)
-                this.message=''
+                this.message = ''
             } else {
                 throw Error('服務器未連接')
             }
         },
-        getFriendName(){
-            return friendName
-        },
-        setFriendId(friendName){
-          this.friendName=friendName;
+        setFriendId(friendName) {
+            this.friendName = friendName;
         },
         wsInit() {
             const url = process.env.VUE_APP_BASE_API;
             const id = store.state.user.id
             const username = store.state.user.username
-            const friendId=this.friendId;
-            const friendName=this.friendName;
-            console.log(friendId)
-            const wsurl = 'ws://localhost:9090/websocket/'+ username +'/'+friendName
-            this.ws = wsurl
-            if (!this.wsIsRun) return
-            this.wsDestroy()
-            this.webSocket = new WebSocket(this.ws)
-            this.webSocket.addEventListener('open', this.wsOpenHanler)
-            this.webSocket.addEventListener('message', this.wsMessageHanler)
-            this.webSocket.addEventListener('error', this.wsErrorHanler)
-            this.webSocket.addEventListener('close', this.wsCloseHanler)
-            clearInterval(this.wsTimer)
-            this.wsTimer = setInterval(() => {
-                if (this.webSocket.readyState === 1) {
-                    clearInterval(this.wsTimer)
-                } else {
-                    console.log("建立連接失敗")
-                    this.wsInit()
-                }
-            }, 3000);
+            const friendId = this.friendId;
+            const friendName = this.friendName;
+            if (username != undefined) {
+                const wsurl = 'ws://localhost:9090/websocket/' + username + '/' + friendName
+                this.ws = wsurl
+                if (!this.wsIsRun) return
+                this.wsDestroy()
+                this.webSocket = new WebSocket(this.ws)
+                this.webSocket.addEventListener('open', this.wsOpenHanler)
+                this.webSocket.addEventListener('message', this.wsMessageHanler)
+                this.webSocket.addEventListener('error', this.wsErrorHanler)
+                this.webSocket.addEventListener('close', this.wsCloseHanler)
+                clearInterval(this.wsTimer)
+                this.wsTimer = setInterval(() => {
+                    if (this.webSocket.readyState === 1) {
+                        clearInterval(this.wsTimer)
+                    } else {
+                        console.log("建立連接失敗")
+                        this.wsInit()
+                    }
+                }, 3000);
+            }
         },
         wsOpenHanler(e) {
             console.log('建立連接成功')
-            console.log(e.data)
         },
         wsMessageHanler(e) {
             console.log(e.data)
-            this.sessionId=e.data
+            this.sessionId = e.data
         },
         wsErrorHanler(event) {
             console.log(event, '通信發生錯誤')

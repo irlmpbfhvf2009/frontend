@@ -169,6 +169,7 @@ export default {
                     const res = await memberInfo(signUpUser);
                     store.commit("setUser", res.data.body)
                     signUpVisible.value = false;
+                    window.location.reload();
                 } else {
                     alert(result)
                 }
