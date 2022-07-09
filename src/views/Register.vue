@@ -9,7 +9,7 @@
 
 
                             <div class="form-label-group" id="registForm">
-                                <select id="gender" class="form-control form-control-sm">
+                                <select id="gender" v-model="signUpUser.gender" class="form-control form-control-sm">
                                     <option value="" data-i18n="reg-gender-hint">-- 請選擇您的性別 --</option>
                                     <option value="0" data-i18n="reg-gender-male">我是有錢的男生</option>
                                     <option value="1" data-i18n="reg-gender-female">我是女生</option>
@@ -19,7 +19,7 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <input type="text" id="name" class="form-control" rows="1" maxlength="8"
+                                    <input type="text" id="name" v-model="signUpUser.username" class="form-control" rows="1" maxlength="8"
                                         data-i18n-placeholder="reg-nickname-hint" placeholder="請輸入暱稱(註冊後不可更改)" />
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <input type="email" id="email" class=" form-control" rows="1" maxlength="100"
+                                    <input type="email" v-model="signUpUser.email" id="email" class=" form-control" rows="1" maxlength="100"
                                         data-i18n-placeholder="reg-email-hint" placeholder="請輸入電子郵件" />
                                 </div>
                             </div>
@@ -46,15 +46,16 @@
 
                             <div class=" mb-3">
                                 <div class="form-group">
-                                    <input type="password" class=" form-control"
-                                        minlength="8" maxlength="20" placeholder="請輸入密碼" />
+                                    <input type="password" v-model="signUpUser.password" class=" form-control" minlength="8" maxlength="20"
+                                        placeholder="請輸入密碼" />
                                 </div>
                             </div>
 
 
                             <div class=" mb-3">
                                 <div class="form-group">
-                                    <input type="password" id="confirm_password" class="form-control" placeholder="請確認密碼"  minlength="8" maxlength="20" />
+                                    <input type="password" v-model="signUpUser.checkPassword" id="confirm_password" class="form-control"
+                                        placeholder="請確認密碼" minlength="8" maxlength="20" />
                                 </div>
                             </div>
                             <div class="d-flex flex-column px-2 mb-3 justify-content-between">
@@ -73,7 +74,7 @@
                                             <router-link to="/login">
                                                 <span class="text-secondary pointer"
                                                     data-i18n="reg-login-text">點擊登入</span>
-                                                    </router-link>
+                                            </router-link>
                                         </small>
                                     </a>
                                 </div>
@@ -81,7 +82,7 @@
 
 
                         </form>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="register()"
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" @click="signUp"
                             data-i18n="reg-by-mail">
                             使用信箱註冊
                         </button>
@@ -133,9 +134,54 @@
 
 
 <script>
-
+import { ref, reactive, computed, onMounted } from 'vue'
+import { login, register, memberInfo } from "@/api/index.js";
+import store from '@/store'
+import { useRouter } from "vue-router";
 export default ({
     name: "Register",
+    setup() {
+        const signUpUser = reactive({
+            email: "",
+            username: "",
+            password: "",
+            checkPassword: "",
+            age: "",
+            gender: "",
+            token: "",
+        });
+        async function signUp() {
+            const res = await register(signUpUser);
+            const result = res.data.body
+            if (result == "註冊成功") {
+                const res = await login(signUpUser);
+                const result = res.data.body
+                const state = res.data.statusCode
+                if (state == "OK") {
+                    alert("註冊成功，已自動登入")
+                    signUpUser.token = result
+                    const res = await memberInfo(signUpUser);
+                    store.commit("setUser", res.data.body)
+                    const router = useRouter();
+                    router.push({
+                        name: 'Home',
+                        params: {
+                            friendId: friendId,
+                            friendName: friendName,
+                        }
+                    })
+                } else {
+                    alert(result)
+                }
+            } else {
+                alert(result)
+            }
+        }
+        return {
+            signUpUser,
+            signUp,
+        }
+    }
 })
 
 </script>
