@@ -1,23 +1,22 @@
 import { createWebHashHistory, createRouter } from "vue-router";
-import AppIntro from '../views/AppIntro.vue'
-import Square from '../views/Square.vue'
-import PrivateChat from '../views/PrivateChat.vue'
-
+import HomeView from '../views/HomeView.vue'
+import Register from '../views/Register.vue'
+import Login from '../views/Login.vue'
 const routes = [
   {
     path: '/',
-    name: 'appIntro',
-    component: AppIntro
+    name: 'HomeView',
+    component: HomeView
   },
   {
-    path: '/square',
-    name: 'square',
-    component: Square
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
-    path: '/chat/:friendId/:friendName',
-    name: 'privateChat',
-    component: PrivateChat
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
 ];
 
