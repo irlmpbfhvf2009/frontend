@@ -52,8 +52,12 @@ export default ({
         const wsInit = (friendName) => {
             const username = store.state.user.username
             if (username != undefined) {
-                const wsurl = 'ws://localhost:9090/websocket/' + username + '/' + friendName
-                data.ws = wsurl
+                const host = window.location.hostname;
+                if(host==='localhost'){
+                    data.ws = 'ws://localhost:9090/websocket/' + username + '/' + friendName
+                }else{
+                    data.ws = 'wss://limitless-hamlet.herokuapp.com/websocket/' + username + '/' + friendName
+                }
                 if (!data.wsIsRun)
                     return wsDestroy()
                 data.webSocket = new WebSocket(data.ws)
