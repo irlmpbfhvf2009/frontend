@@ -87,14 +87,15 @@ export default ({
             let html;
             if (send === store.state.user.username) {
                 html = "<div style=\"padding: 5px 0\">\n" +
-                    " <div style=\"text-align: right; padding-right: 10px\">\n" +
-                    "    <div class=\"tip left\">" + text + "</div>\n" +
-                    "  </div>\n" +
-                    "  <div>\n" +
-                    "  <span  style=\"height: 40px; width: 40px; line-height: 40px;\">\n" +
-                    /* "    <img src=\"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png\" style=\"object-fit: cover;\">\n" + */
-                    "  </span>\n" +
-                    "  </div>\n" +
+                    "<div style=\"text-align: right; padding-right: 10px\">\n" +
+                    "<img src=\"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png\" style=\"object-fit: cover;width:40px\">"+
+                    "<div class=\"tip left\">" + text + "</div>\n" +
+                    "</div>\n" +
+                    "<div>\n" +
+                    "<span  style=\"height: 40px; width: 40px; line-height: 40px;\">\n" +
+                    /* "<img src=\"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png\" style=\"object-fit: cover;width:40px\">\n" + */
+                    "</span>\n" +
+                    "</div>\n" +
                     "</div>";
             } else {
                 html = "<div class=\"el-row\" style=\"padding: 5px 0\">\n" +
@@ -141,7 +142,7 @@ export default ({
 </script>
 <style>
 .tip {
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
     border-radius: 10px;
     font-family: sans-serif;
@@ -156,6 +157,6 @@ export default ({
 }
 
 .left {
-    background-color: forestgreen;
+    background-color: rgb(168, 219, 168);
 }
 </style>
