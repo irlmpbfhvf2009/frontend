@@ -11,7 +11,7 @@
 
     </form>
 
-    <form class="register">
+    <form class="register" >
         <h1>會員註冊</h1><br>
         <select v-model="signUp.gender" class="form-select" aria-label="Default select example">
             <option value="0" selected> -- 請選擇您的性別 --</option>

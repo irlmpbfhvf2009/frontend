@@ -5,7 +5,7 @@
   <div style="width: 1000px;margin:0px auto;margin-top: 100px;">
     <h1 style="text-align:center">推薦用戶</h1>
 
-    <router-link to="/register">
+    <a href="/">
       <a-card hoverable style="width: 240px;display:inline-block;margin: 30px;">
         <template #cover>
           <img class="img" style="width: 240px;height: 240px;" src="../assets/123/002.jpg" />
@@ -14,7 +14,7 @@
           <template #description>註冊並了解更多</template>
         </a-card-meta>
       </a-card>
-    </router-link>
+    </a>
 
     <a-card hoverable style="width: 240px;display:inline-block;margin: 30px;">
       <template #cover>
@@ -41,9 +41,9 @@ import bg from '@/assets/2.jpg'
 import { ref, reactive, computed, onMounted } from 'vue'
 import Login from "@/components/Login.vue"
 export default ({
-  components: { 
+  components: {
     Login,
-    },
+  },
   setup() {
     const data = reactive({
       backgroundImage: bg,
@@ -63,8 +63,8 @@ export default ({
   background-size: cover;
   background-position: center center;
 }
+
 .img {
   filter: blur(5px)
 }
-
 </style>
