@@ -172,7 +172,7 @@ export default ({
             }
             signUp.age = age;
             var c = getAstro(birthday.month, birthday.day);
-            signUp.constellation = c;
+            signUp.constellation = c+'座';
             const res = await register(signUp);
             const result = res.data.body
             if (result == "註冊成功") {
