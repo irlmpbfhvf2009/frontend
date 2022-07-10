@@ -20,12 +20,12 @@
         </select><br>
         <div style="color:white;text-align: left;">
             生日
-            <select v-model="birthday.year" style="width: 20%; display:inline;margin-right: 15px;" class="form-select year"
-                aria-label="Default select example">
+            <select v-model="birthday.year" style="width: 20%; display:inline;margin-right: 15px;"
+                class="form-select year" aria-label="Default select example">
                 <option selected value="year">年</option>
             </select>
-            <select v-model="birthday.month" style="width: 20%; display:inline;margin-right: 15px;" class="form-select month"
-                aria-label="Default select example">
+            <select v-model="birthday.month" style="width: 20%; display:inline;margin-right: 15px;"
+                class="form-select month" aria-label="Default select example">
                 <option selected value="month">月</option>
             </select>
             <select v-model="birthday.day" style="width: 20%;display:inline;margin-right: 15px;" class="form-select day"
@@ -166,13 +166,17 @@ export default ({
                 alert('生日錯誤');
                 return false;
             }
-            if(signUp.gender=="0"){
+            if (signUp.gender == "0") {
                 alert('性別沒選');
+                return false;
+            }
+            if (age < 18) {
+                alert('年齡必須大於18');
                 return false;
             }
             signUp.age = age;
             var c = getAstro(birthday.month, birthday.day);
-            signUp.constellation = c+'座';
+            signUp.constellation = c + '座';
             const res = await register(signUp);
             const result = res.data.body
             if (result == "註冊成功") {

@@ -87,7 +87,7 @@
 <script>
 import AllGirl from '@/components/AllGirl.vue'
 import Information from '@/components/Information.vue'
-import { ref, reactive, computed, onMounted } from 'vue'
+import { markRaw ,ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import store from '@/store';
 export default ({
@@ -95,10 +95,10 @@ export default ({
         const user = store.state.user
         const router = useRouter();
         const components = reactive({
-            view: AllGirl
+            view: markRaw(AllGirl)
         })
         const information = () => {
-            components.view = Information
+            components.view = markRaw(Information)
             closeNav()
         }
         const home = () => {
