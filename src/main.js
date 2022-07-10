@@ -5,7 +5,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap"
 import store from './store'
+
+const $ = require('jquery');
+window.$ = $;
 
 const app = createApp(App)
 app.use(Antd);
