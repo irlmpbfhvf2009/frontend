@@ -11,23 +11,25 @@
 
     </form>
 
-    <form class="register" >
+    <form class="register">
         <h1>會員註冊</h1><br>
         <select v-model="signUp.gender" class="form-select" aria-label="Default select example">
             <option value="0" selected> -- 請選擇您的性別 --</option>
             <option value="boy">我是有錢的女生</option>
             <option value="girl">我是男生</option>
         </select><br>
-        <div style="color:white">
-            生日(未開發)
-            <select style="width: 20%; display:inline" class="form-select" aria-label="Default select example">
-                <option selected>年</option>
+        <div style="color:white;text-align: left;">
+            生日
+            <select v-model="birthday.year" style="width: 20%; display:inline;margin-right: 15px;" class="form-select year"
+                aria-label="Default select example">
+                <option selected value="year">年</option>
             </select>
-            <select style="width: 20%; display:inline" class="form-select" aria-label="Default select example">
-                <option selected>月</option>
+            <select v-model="birthday.month" style="width: 20%; display:inline;margin-right: 15px;" class="form-select month"
+                aria-label="Default select example">
+                <option selected value="month">月</option>
             </select>
-            <select style="width: 20%;display:inline" class="form-select" aria-label="Default select example">
-                <option selected>日</option>
+            <select v-model="birthday.day" style="width: 20%;display:inline;margin-right: 15px;" class="form-select day"
+                aria-label="Default select example">
             </select>
         </div>
         <br>
@@ -64,12 +66,58 @@ export default ({
             checkPassword: '',
             gender: '0',
             age: '',
+            constellation: '',
             token: '',
         })
+        const birthday = reactive({
+            year: '',
+            month: '',
+            day: '',
+        })
+
+
         const router = useRouter();
         const init = () => {
             $('.register').css('display', 'none')
+            var date = new Date();
+            var year = date.getFullYear();
+            for (var i = year - 70; i <= year; i++) {
+                $('.year').append("<option value=" + i + ">" + i + "</option>")
+            }
+            for (var i = 1; i <= 12; i++) {
+                $('.month').append("<option value=" + i + ">" + i + "</option>")
+            }
+            $('.day').append("<option value=" + "日" + ">" + "日" + "</option>")
+            const getDaysInMonth = (month, year) => {//年月對應的日數算法
+                var days;
+                if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                    days = 31;//固定31
+                } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                    days = 30;//固定30
+                } else {
+                    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {     //排除百年，每四年一閨；每四百年一閨；
+                        days = 29; //閨年29
+                    } else {
+                        days = 28; //平年28
+                    }
+                }
+                return days;
+            }
+            $(".month").change(function () {
+                getDays($('.month').val(), $('.year').val())
+            });
+            const getDays = () => {
+                var year = $(".year").val();
+                var month = $(".month").val();
+                var days = getDaysInMonth(month, year);
+                $(".day").empty();
+                $(".day").append("<option value='日'>日</option>");
+                for (var i = 1; i <= days; i++) {
+                    $(".day").append("<option value=\"" + i + "\">" + i + "</option>");
+                }
+            }
         }
+
         const loginForm = () => {
             $('.login').css('display', 'block');
             $('.register').css('display', 'none');
@@ -98,7 +146,14 @@ export default ({
                 alert(result)
             }
         }
-
+        function calculateAge(b) {
+            const ageDifMs = Date.now() - new Date(b).getTime();
+            const ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
+        function getAstro(m, d) {
+            return "魔羯水瓶雙魚牡羊金牛雙子巨蟹獅子處女天秤天蠍射手魔羯".substr(m * 2 - (d < "102223444433".charAt(m - 1) - -19) * 2, 2);
+        }
         async function submitRegister() {
             if (signUp.password != signUp.checkPassword) {
                 alert('兩次密碼輸入不一致')
@@ -106,6 +161,18 @@ export default ({
                 signUp.checkPassword = '';
                 return false;
             }
+            var age = calculateAge(birthday.year + '-' + birthday.month + '-' + birthday.day)
+            if (isNaN(age) || birthday.month == "" || birthday.day == "" || birthday.year == "") {
+                alert('生日錯誤');
+                return false;
+            }
+            if(signUp.gender=="0"){
+                alert('性別沒選');
+                return false;
+            }
+            signUp.age = age;
+            var c = getAstro(birthday.month, birthday.day);
+            signUp.constellation = c;
             const res = await register(signUp);
             const result = res.data.body
             if (result == "註冊成功") {
@@ -119,8 +186,6 @@ export default ({
                     router.push({
                         name: 'Home',
                         params: {
-                            /* friendId: friendId,
-                            friendName: friendName, */
                         }
                     })
                 } else {
@@ -140,6 +205,7 @@ export default ({
             registerForm,
             submitLogin,
             submitRegister,
+            birthday,
         }
     }
 })
