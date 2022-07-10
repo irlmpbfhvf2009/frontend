@@ -67,7 +67,7 @@ export default ({
             gender: '0',
             age: '',
             constellation: '',
-            token: '',
+            token: '', 
         })
         const birthday = reactive({
             year: '',
