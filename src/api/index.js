@@ -51,3 +51,15 @@ export function myFriend(data) {
         data,
     });
 }
+
+// 上傳檔案
+export function uploadFileRequest (url, params) {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
