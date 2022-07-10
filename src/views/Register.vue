@@ -19,16 +19,18 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <input type="text" id="name" v-model="signUpUser.username" class="form-control" rows="1" maxlength="8"
-                                        data-i18n-placeholder="reg-nickname-hint" placeholder="請輸入暱稱(註冊後不可更改)" />
+                                    <input type="text" id="name" v-model="signUpUser.username" class="form-control"
+                                        rows="1" maxlength="8" data-i18n-placeholder="reg-nickname-hint"
+                                        placeholder="請輸入暱稱(註冊後不可更改)" />
                                 </div>
                             </div>
 
 
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <input type="email" v-model="signUpUser.email" id="email" class=" form-control" rows="1" maxlength="100"
-                                        data-i18n-placeholder="reg-email-hint" placeholder="請輸入電子郵件" />
+                                    <input type="email" v-model="signUpUser.email" id="email" class=" form-control"
+                                        rows="1" maxlength="100" data-i18n-placeholder="reg-email-hint"
+                                        placeholder="請輸入電子郵件" />
                                 </div>
                             </div>
 
@@ -46,16 +48,16 @@
 
                             <div class=" mb-3">
                                 <div class="form-group">
-                                    <input type="password" v-model="signUpUser.password" class=" form-control" minlength="8" maxlength="20"
-                                        placeholder="請輸入密碼" />
+                                    <input type="password" v-model="signUpUser.password" class=" form-control"
+                                        minlength="8" maxlength="20" placeholder="請輸入密碼" />
                                 </div>
                             </div>
 
 
                             <div class=" mb-3">
                                 <div class="form-group">
-                                    <input type="password" v-model="signUpUser.checkPassword" id="confirm_password" class="form-control"
-                                        placeholder="請確認密碼" minlength="8" maxlength="20" />
+                                    <input type="password" v-model="signUpUser.checkPassword" id="confirm_password"
+                                        class="form-control" placeholder="請確認密碼" minlength="8" maxlength="20" />
                                 </div>
                             </div>
                             <div class="d-flex flex-column px-2 mb-3 justify-content-between">
@@ -166,8 +168,8 @@ export default ({
                     router.push({
                         name: 'Home',
                         params: {
-                            friendId: friendId,
-                            friendName: friendName,
+                            /* friendId: friendId,
+                            friendName: friendName, */
                         }
                     })
                 } else {
@@ -185,6 +187,5 @@ export default ({
 })
 
 </script>
-<style lang="css">
-@import '../assets/styles.css';
+<style>
 </style>
