@@ -121,10 +121,12 @@ export default ({
         }
 
         function openNav() {
-            document.getElementById("mySidenav").style.display = "block";
+            /* document.getElementById("mySidenav").style.display = "block"; */
+            document.getElementById("mySidenav").style.visibility = "visible";
         }
         function closeNav() {
-            document.getElementById("mySidenav").style.display = "none";
+            /* document.getElementById("mySidenav").style.display = "none"; */
+            document.getElementById("mySidenav").style.visibility = "hidden";
         }
 
         return {
@@ -145,9 +147,9 @@ export default ({
         background: radial-gradient(circle at center, rgb(255, 175, 175), rgb(246, 124, 124));
     }
     
-    
     .sidenav {
-        display: none;
+        visibility: hidden;
+        /* display: none; */
         height: 100%;
         width: 400px;
         position: fixed;
