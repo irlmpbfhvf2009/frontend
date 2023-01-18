@@ -66,9 +66,8 @@
     </div>
 </template>
 <script setup>
-import { onBeforeMount,ref } from 'vue';
-import avatar from "../assets/img/avator.png"
-import { getCurrentInstance } from 'vue'
+import { onBeforeMount,ref,getCurrentInstance } from 'vue';
+import avatar from "../../assets/img/avator.png"
 
 const { proxy } = getCurrentInstance();
 let isCollapse = ref(false);
@@ -84,6 +83,6 @@ const saveActiveNav = (path) => {
 }
 const logout = () => {
     sessionStorage.clear();
-    proxy.$commonJs.changeView('/login')
+    proxy.$commonJs.changeView('/adminLogin')
 }
 </script>

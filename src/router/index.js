@@ -27,7 +27,7 @@ const routes = [
         meta: {
             title: '後台登入'
         },
-        component: () => import('../view/admin/Login.vue')
+        component: () => import('../view/admin/views/Login.vue')
     },
     {
         path: '/adminHome',
@@ -35,7 +35,7 @@ const routes = [
         meta: {
             title: '後台主頁'
         },
-        component: () => import('../view/admin/Home.vue'),
+        component: () => import('../view/admin/views/Home.vue'),
         redirect: '/adminIndex',
         children: [
             {
@@ -43,21 +43,21 @@ const routes = [
                 meta: {
                     title: '後台首頁'
                 },
-                component: () => import('../view/admin/Welcome.vue')
+                component: () => import('../view/admin/components/Welcome.vue')
             },
             {
                 path: '/user/list',
                 meta: {
                     title: '用戶管理'
                 },
-                component: () => import('../view/admin/user/Index.vue'),
+                component: () => import('../view/admin/views/user/Index.vue'),
             },
             {
                 path: '/user/detail',
                 meta: {
                     title: '用戶詳情'
                 },
-                component: () => import('../view/admin/user/Detail.vue'),
+                component: () => import('../view/admin/views/user/Detail.vue'),
             }
         ]
     }
@@ -67,10 +67,10 @@ const router = createRouter({
     routes
 })
 router.beforeEach((to, from, next) => {
-    if (to.meta.title) {
-        document.title = 'XXXX管理系統 - ' + to.meta.title
-    }
     if (to.path === '/index') {
+        return next()
+    }
+    if (to.path === '/adminLogin') {
         return next()
     }
     const token = sessionStorage.getItem('token')

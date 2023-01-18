@@ -36,7 +36,7 @@
 </template>
 <script setup>
 import { reactive, ref } from "vue";
-import adminApi from "../../api/admin"
+import adminApi from "../../../api/admin"
 import { ElMessage } from "element-plus";
 import { getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance();
@@ -44,6 +44,7 @@ const { proxy } = getCurrentInstance();
 const form = reactive({
     email: "",
     password: "",
+    token:"",
 })
 const ruleFormRef = ref();
 const rules = reactive({
