@@ -1,0 +1,13 @@
+.ee {
+    width: 130px;
+    display: inline-block;
+}
+.w18pat25l20{
+    width: 18rem;position: absolute; top:25%;left: 20%;
+}
+.pal240cpt20{
+    position:absolute;left:240;cursor:pointer;top:20;
+}
+.pat25l50{
+    position: absolute;top:25%;left:50%
+}

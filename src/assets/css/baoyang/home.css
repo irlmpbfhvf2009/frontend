@@ -1,0 +1,79 @@
+.navv{
+    height: 120px;background: radial-gradient(circle at center, rgb(255, 175, 175), rgb(246, 124, 124));
+}
+.openNav{
+    font-size:30px;cursor:pointer;position: absolute;top:5%;left:10%
+}
+.pat7l80{
+    position:absolute;top:7%;left:80%
+}
+.pat7l48{
+    position:absolute;top:7%;left:48%;
+}
+.mr20{
+    margin-right:20px;
+}
+.aveter{
+    width:130px;height:130px;border-radius: 50%;margin:0px 0px 50px 150px;cursor:pointer
+}
+.pal250t170{
+    position:absolute;left:250;cursor:pointer;top:170;
+}
+.list{
+    width:75%;margin:0px auto;
+}
+.w16h16di{
+    width: 16px; height: 16px; display: inline-block;
+}
+
+.sidenav {
+    visibility: hidden;
+    /* display: none; */
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgb(255, 255, 255), rgb(255, 243, 243));
+    /* background-color: rgb(225, 225, 225); */
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+.list a {
+    border: 1px solid #a8a8a8;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.sidenav a {
+    padding: 5px 0px 5px 50px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #2a2929;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f7afaf;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}

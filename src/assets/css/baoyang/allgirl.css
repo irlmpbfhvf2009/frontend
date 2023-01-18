@@ -1,0 +1,10 @@
+.pointer {
+    width: 150px;
+    margin: 30px;
+}
+
+.pat20l20 {
+    position: absolute;
+    top: 20%;
+    left: 25%
+}
