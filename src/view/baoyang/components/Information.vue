@@ -35,7 +35,7 @@
 <script setup>
 import avatar from '../../../assets/img/avator.png'
 import { ref, reactive, computed, onMounted } from 'vue'
-import "../../../assets/css/baoyang/Information.css";
+import "../../../assets/css/baoyang/information.css";
 const user = JSON.parse(sessionStorage.getItem("user"))
 const data = reactive({
     ava: avatar,

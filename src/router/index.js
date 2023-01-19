@@ -2,24 +2,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
     {
         path: '/',
-        redirect: '/index'
+        redirect: '/login'
     },
     // 包養
     {
-        path: '/index',
-        name: 'index',
-        component: () => import('../view/baoyang/views/Index.vue')
-    },
-    {
         path: '/login',
         name: 'Login',
-        component: () => import('../view/baoyang/components/Login.vue')
+        component: () => import('../view/baoyang/views/Login.vue')
     },
-    {
-        path: '/home',
-        name: 'Home',
-        component: () => import('../view/baoyang/views/Home.vue')
-      },
     // 後台
     {
         path: '/adminLogin',
@@ -67,16 +57,13 @@ const router = createRouter({
     routes
 })
 router.beforeEach((to, from, next) => {
-    if (to.path === '/index') {
-        return next()
-    }
-    if (to.path === '/adminLogin') {
+    if (to.path === '/login') {
         return next()
     }
     const token = sessionStorage.getItem('token')
     if (!token) {
-        return next('/index')
-    } 
+        return next('/')
+    }
     return next()
 })
 

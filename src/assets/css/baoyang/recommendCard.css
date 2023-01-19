@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+@media screen and (min-width: 1023px) {
+    .card{
+        width: 48vh;
+        height: 68vh;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+    .card{
+        width: 28vh;
+        height: 28vh;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .card{
+        width: 45vh;
+        height: 55vh;
+    }
+}
+
+@media screen and (max-device-width: 480px) {
+    .card{
+        width: 36vh;
+        height: 58vh;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    /* 直立時套用 */
+}
+
+@media screen and (orientation: landscape) {
+    /* 橫放時套用 */
+}
+.img {
+    width: 100%;
+    height: 80%;
+    filter: blur(3px)
+}
+
+.card:hover {
+    transform: translateY(-20px);
+    transition: all 1s ease-in-out;
+}
+
+
+.card-title,
+.card-text{
+    color: #d9455f;
+}

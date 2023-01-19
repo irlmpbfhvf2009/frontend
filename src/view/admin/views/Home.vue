@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <el-container class="home-container">
+        <el-container class="home-container asdasdasd" >
             <el-header>
                 <el-row>
                     <el-col :span="4">
@@ -8,14 +7,15 @@
                     </el-col>
                     <el-col :offset="12" :span="8" style="min-width:150px">
                         <el-dropdown style="float:right;margin:20px 10px">
-                            <span class="el-dropdown-link" style="color:#fff;cursor:pointer;">
-                                ㄢㄢ &nbsp;&nbsp; <el-icon class="el-icon--right">
+                            <span class="el-dropdown-link" style="cursor:pointer;">
+                                安安安安 &nbsp;&nbsp; 
+                                <el-icon class="el-icon--right">
                                     <arrow-down />
                                 </el-icon>
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click.native="logout">退出系統</el-dropdown-item>
+                                    <el-dropdown-item @click.native="logout()">退出系統</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -23,15 +23,16 @@
                     </el-col>
                 </el-row>
             </el-header>
-            <el-container style="overflow:auto">
-                <el-aside>
-                    <div class="toggle-button" @click="isCollapse = !isCollapse">
-                        <el-icon :size="20">
-                            <Expand v-if="isCollapse" />
-                            <Fold v-if="!isCollapse" />
-                        </el-icon>
-                    </div>
-                    <el-menu router :default-active="activePath" class="el-menu-vertical-demo" :collapse="isCollapse">
+        </el-container>
+        <el-container class="dsadsadsa">
+            <el-aside>
+                <div class="toggle-button" @click="isCollapse = !isCollapse">
+                    <el-icon :size="70">
+                        <Expand v-if="isCollapse" />
+                        <Fold v-if="!isCollapse" />
+                    </el-icon>
+                </div>
+                <el-menu router :default-active="activePath" class="el-menu-vertical-demo" :collapse="isCollapse">
                     <el-menu-item index="/index" @click="saveActiveNav('/index')">
                         <el-icon>
                             <house />
@@ -53,32 +54,32 @@
                         </el-icon>
                         <span>用戶管理</span>
                     </el-menu-item>
-                    </el-menu>
-                </el-aside>
-                <el-container>
-                    <el-main>
-                        <router-view></router-view>
-                    </el-main>
-                    <el-footer>Copyright 2023 瑞恩群交</el-footer>
-                </el-container>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+                <el-footer>
+                    Copyright &copy;2023 瑞恩群交
+                </el-footer>
             </el-container>
         </el-container>
-    </div>
 </template>
 <script setup>
-import { onBeforeMount,ref,getCurrentInstance } from 'vue';
-import avatar from "../../assets/img/avator.png"
+import { onBeforeMount, ref, getCurrentInstance } from 'vue';
+import avatar from "../../../assets/img/avator.png"
 
 const { proxy } = getCurrentInstance();
 let isCollapse = ref(false);
-onBeforeMount(()=>{
+onBeforeMount(() => {
     activePath.value = sessionStorage.getItem(activePath)
         ? sessionStorage.getItem("activePath") : "/index"
 })
 let activePath = ref("");
 
 const saveActiveNav = (path) => {
-    sessionStorage.setItem("activePath",path);
+    sessionStorage.setItem("activePath", path);
     activePath.value = path;
 }
 const logout = () => {
@@ -86,3 +87,11 @@ const logout = () => {
     proxy.$commonJs.changeView('/adminLogin')
 }
 </script>
+<style scoped>
+
+.dsadsadsa{
+    height: 94%;
+}
+
+
+</style>

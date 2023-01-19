@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+@media screen and (min-width: 1023px) {
+
+    .loginForm {
+        width: 20%;
+    }
+    .registerForm{
+        width: 25%;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+
+    .loginForm,
+    .registerForm {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .loginForm,
+    .registerForm {
+        width: 75%;
+    }
+}
+
+@media screen and (max-device-width: 480px) {
+
+    .loginFrom,
+    .registerForm {
+        width: 100%;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    /* 直立時套用 */
+}
+
+@media screen and (orientation: landscape) {
+    /* 橫放時套用 */
+}
+
+.row {
+    height: 100%;
+}
+.bg {
+    width: 100%;
+    height: 720px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+.loginForm,
+.registerForm {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.color255148109 {
+    color: rgb(255, 148, 109);
+}
+
+.color227133182 {
+    color: rgb(227, 133, 182);
+}
+
+.year,
+.month,
+.day {
+    margin-right: 10px;
+}
