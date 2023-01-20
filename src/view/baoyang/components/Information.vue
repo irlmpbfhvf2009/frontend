@@ -33,7 +33,7 @@
 
 </template>
 <script setup>
-import avatar from '../../../assets/img/avator.png'
+import avatar from '../../../assets/img/baoyang/avator.png'
 import { ref, reactive, computed, onMounted } from 'vue'
 import "../../../assets/css/baoyang/information.css";
 const user = JSON.parse(sessionStorage.getItem("user"))

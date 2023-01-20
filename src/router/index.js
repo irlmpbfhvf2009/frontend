@@ -6,9 +6,19 @@ const routes = [
     },
     // 包養
     {
+        path: '/toast',
+        name: 'Toast',
+        component: () => import('../view/common/Toast.vue')
+    },
+    {
         path: '/login',
         name: 'Login',
         component: () => import('../view/baoyang/views/Login.vue')
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: () => import('../view/baoyang/views/Home.vue')
     },
     // 後台
     {
@@ -58,6 +68,9 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
+        return next()
+    }
+    if (to.path === '/toast') {
         return next()
     }
     const token = sessionStorage.getItem('token')

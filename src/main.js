@@ -9,7 +9,10 @@ import * as Icons from '@element-plus/icons-vue'
 import commonJs from './assets/js/common'
 //import "bootstrap/dist/css/bootstrap.min.css"
 import "./assets/all.scss";
-import 'bootstrap'
+//import 'bootstrap'
+import * as bootstrap from 'bootstrap';
+
+window.Toast = bootstrap.Toast;
 
 const app = createApp(App)
 for(let i in Icons){

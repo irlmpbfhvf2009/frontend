@@ -1,6 +1,8 @@
 <template>
+
     <Form />
     <RecommendCard />
+
 </template>
 
 <script setup>

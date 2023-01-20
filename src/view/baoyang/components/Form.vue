@@ -66,24 +66,24 @@
             </div>
         </div>
     </div>
-
-
 </template>
 
 
 <script setup>
 
-import { reactive, onMounted } from "vue";
-import { ElMessage } from "element-plus";
-import { getCurrentInstance } from 'vue'
-import "../../../assets/css/baoyang/form.css";
+import { reactive, onMounted ,getCurrentInstance } from "vue";
 import userApi from "../../../api/user"
 import $ from 'jquery'
+import "../../../assets/css/baoyang/form.css";
 import bg from "../../../assets/img/baoyang/bg.jpg";
+
+const { proxy } = getCurrentInstance();
+const common = proxy.$commonJs
+
 const backgroundImage = reactive({
     backgroundImage: bg,
 })
-const { proxy } = getCurrentInstance();
+
 const signIn = reactive({
     email: '',
     password: '',
@@ -108,7 +108,7 @@ const init = () => {
     $('.registerForm').css('display', 'none')
 
     var date = new Date();
-    var year = date.getFullYear();
+    var year = date.getFullYear()
     for (var i = year - 70; i <= year; i++) {
         $('.year').append("<option value=" + i + ">" + i + "</option>")
     }
@@ -153,25 +153,27 @@ const registerForm = () => {
     $('.loginForm').css('display', 'none');
     $('.registerForm').css('display', 'block');
 }
+
+
 async function submitLogin() {
     const res = await userApi.login(signIn);
     const data = res.data.body
     sessionStorage.setItem('token', data)
     const state = res.data.statusCode
     if (state == "OK") {
-        ElMessage.success("登入成功")
+        common.success("登入成功")
         signIn.token = data;
         const res = await userApi.memberInfo(signIn)
         const memberInfo = res.data.body
         const user = JSON.stringify(memberInfo);
         sessionStorage.setItem('user', user)
         if (memberInfo.roles[0] == "ADMIN") {
-            proxy.$commonJs.changeView('/adminHome')
+            common.changeView('/adminHome')
         } else if (memberInfo.roles[0] == "USER") {
-            proxy.$commonJs.changeView('/home')
+            common.changeView('/home')
         }
     } else {
-        ElMessage.error(data)
+        common.error(data)
     }
 }
 function calculateAge(b) {
@@ -184,22 +186,22 @@ function getAstro(m, d) {
 }
 async function submitRegister() {
     if (signUp.password != signUp.checkPassword) {
-        ElMessage.error('兩次密碼輸入不一致')
+        common.error('兩次密碼輸入不一致')
         signUp.password = '';
         signUp.checkPassword = '';
         return false;
     }
     var age = calculateAge(birthday.year + '-' + birthday.month + '-' + birthday.day)
     if (isNaN(age) || birthday.month == "" || birthday.day == "" || birthday.year == "") {
-        ElMessage.error('生日錯誤');
+        common.error('生日錯誤');
         return false;
     }
     if (signUp.gender == "0") {
-        ElMessage.error('性別沒選');
+        common.error('性別沒選');
         return false;
     }
     if (age < 18) {
-        ElMessage.error('年齡必須大於18');
+        common.error('年齡必須大於18');
         return false;
     }
     signUp.age = age;
@@ -211,18 +213,19 @@ async function submitRegister() {
         const res = await userApi.login(signUp);
         const data = res.data.body
         const state = res.data.statusCode
+        common.success("註冊成功")
         if (state == "OK") {
             signUp.token = data
             const res = await userApi.memberInfo(signUp)
             const memberInfo = res.data.body
             const user = JSON.stringify(memberInfo);
             sessionStorage.setItem('user', user)
-            proxy.$commonJs.changeView('/home')
+            common.changeView('/home')
         } else {
-            ElMessage.error(data)
+            common.error(data)
         }
     } else {
-        ElMessage.error(result)
+        common.error(result)
     }
 }
 
